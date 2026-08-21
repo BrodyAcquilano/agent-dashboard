@@ -59,7 +59,7 @@ function MessageBoard() {
       aria-label="Project Communications"
     >
       <div className="message-board-header">
-        <h2>Communications</h2>
+        <h2>Message Board</h2>
       </div>
 
       <div className="message-board-content">

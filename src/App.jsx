@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
 
 import Header from "./Workspace/Navigation/Header.jsx";
-import Landing from "./Workspace/Landing/Landing.jsx";
+import Projects from "./Workspace/Projects/Projects.jsx";
 import Preferences from "./Workspace/Preferences/Preferences.jsx";
 
 import { useAllRuntime } from "./Runtime/index.js";
@@ -60,7 +60,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Landing />}
+            element={<Projects />}
           />
 
           {engine?.PagesAdapter?.({

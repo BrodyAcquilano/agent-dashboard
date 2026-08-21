@@ -105,12 +105,12 @@ The current navigation order is:
 * Operations
 * Communications
 * Output
-* Setup
+* Agents
 * Tools
 * Analytics
 * Preferences
 
-**Home** is the workspace-level Landing page and is mounted at the root route `/`. It provides a stable default route that can load even before an engine-specific project workflow is available. In the future, Landing can become the main project selection and project launch screen.
+**Projects** is the workspace-level Landing page and is mounted at the root route `/`. It provides a stable default route that can load even before an engine-specific project workflow is available. In the future, this is the main project selection and project launch screen.
 
 **Preferences** is also workspace-level. It remains available independently of the active project or engine and is intended for dashboard-level or user-level preferences.
 
@@ -221,9 +221,9 @@ A software project might emphasize source code, documentation, builds, test resu
 
 ---
 
-## Setup
+## Agents
 
-Setup is where agents are created and configured.
+Agents is where agents are created and configured.
 
 Agent configuration may eventually include:
 
@@ -251,7 +251,7 @@ Agent configuration may eventually include:
 
 Different AI providers may expose different models, parameters, authentication systems, capabilities, and restrictions.
 
-The Setup workflow will therefore need to adapt as provider integrations are implemented.
+The Agents workflow will therefore need to adapt as provider integrations are implemented.
 
 The dashboard does not assume that every provider works identically.
 
@@ -350,13 +350,13 @@ The current Workspace contains:
 Workspace/
 ├── Navigation/
 │   └── Header
-├── Landing/
-│   └── Landing
+├── Projects/
+│   └── Projects
 └── Preferences/
     └── Preferences
 ```
 
-**Landing** is the default React Router page at `/`. It provides a stable entry point before or outside engine-specific workflows and can later become the project selection and launch interface.
+**Projects** is the default React Router page at `/`. It provides a stable entry point before or outside engine-specific workflows and is the project selection and launch interface.
 
 **Header** is the workspace-level navigation component. It displays workspace links such as Home and Preferences directly, while engine-specific links are generated from the active engine's `pagesConfig`.
 
@@ -460,7 +460,7 @@ The General engine is intentionally broad. Most agentic projects can use the sam
 Operations
 Communications
 Output
-Setup
+Agents
 Tools
 Analytics
 ```
@@ -470,7 +470,7 @@ Different projects do not require different engines simply because they contain 
 A new engine becomes useful when the **application behavior itself** needs to change. Examples include:
 
 * an Output workflow that requires fundamentally different components or artifact handling
-* a Setup workflow with specialized configuration constraints for a provider or domain
+* a Agents workflow with specialized configuration constraints for a provider or domain
 * different workflow availability or routing
 * specialized validation
 * a substantially different Operations visualization
@@ -708,7 +708,7 @@ Currently:
 Operations
 Communications
 Output
-Setup
+Agents
 Tools
 Analytics
 ```
@@ -731,7 +731,7 @@ For example:
 
 ```text
 Operations/
-Setup/
+Agents/
 Output/
 ```
 
@@ -904,7 +904,7 @@ The initial General engine provides placeholder workflows for:
 Operations
 Communications
 Output
-Setup
+Agents
 Tools
 Analytics
 ```

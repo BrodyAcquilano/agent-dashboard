@@ -37,7 +37,7 @@ function Header({ pagesConfig = [] }) {
           end
           onClick={closeMenu}
         >
-          Home
+          Projects
         </NavLink>
 
         {pagesConfig.map(({ key, path, label }) => (

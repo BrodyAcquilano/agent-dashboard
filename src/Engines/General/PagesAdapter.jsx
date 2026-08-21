@@ -3,7 +3,7 @@ import { Route } from "react-router";
 import Operations from "../../Workflows/Operations.jsx";
 import Communications from "../../Workflows/Communications.jsx";
 import Output from "../../Workflows/Output.jsx";
-import Setup from "../../Workflows/Setup.jsx";
+import Agents from "../../Workflows/Agents.jsx";
 import Tools from "../../Workflows/Tools.jsx";
 import Analytics from "../../Workflows/Analytics.jsx";
 
@@ -25,9 +25,9 @@ export function getPagesConfig() {
       label: "Output",
     },
     {
-      key: "setup",
-      path: "setup",
-      label: "Setup",
+      key: "agents",
+      path: "agents",
+      label: "Agents",
     },
     {
       key: "tools",
@@ -53,7 +53,7 @@ export function PagesAdapter({ runtime }) {
 
       <Route path="/output" element={<Output />} />
 
-      <Route path="/setup" element={<Setup />} />
+      <Route path="/agents" element={<Agents />} />
 
       <Route path="/tools" element={<Tools />} />
 
