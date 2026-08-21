@@ -1,57 +1,63 @@
-import { Route } from 'react-router'
+import { Route } from "react-router";
 
-import Team from '../../Workflows/Team.jsx'
-import Setup from '../../Workflows/Setup.jsx'
-import Output from '../../Workflows/Output.jsx'
-import Preferences from '../../Workflows/Preferences.jsx'
+import Operations from "../../Workflows/Operations.jsx";
+import Communications from "../../Workflows/Communications.jsx";
+import Output from "../../Workflows/Output.jsx";
+import Setup from "../../Workflows/Setup.jsx";
+import Tools from "../../Workflows/Tools.jsx";
+import Analytics from "../../Workflows/Analytics.jsx";
 
 export function getPagesConfig() {
   return [
     {
-      key: 'team',
-      path: 'team',
-      label: 'Team',
+      key: "operations",
+      path: "operations",
+      label: "Operations",
     },
     {
-      key: 'setup',
-      path: 'setup',
-      label: 'Setup',
+      key: "communications",
+      path: "communications",
+      label: "Communications",
     },
     {
-      key: 'output',
-      path: 'output',
-      label: 'Output',
+      key: "output",
+      path: "output",
+      label: "Output",
     },
     {
-      key: 'preferences',
-      path: 'preferences',
-      label: 'Preferences',
+      key: "setup",
+      path: "setup",
+      label: "Setup",
     },
-  ]
+    {
+      key: "tools",
+      path: "tools",
+      label: "Tools",
+    },
+    {
+      key: "analytics",
+      path: "analytics",
+      label: "Analytics",
+    },
+  ];
 }
 
-export function PagesAdapter({runtime}) {
+export function PagesAdapter({ runtime }) {
+  if (!runtime) return null;
+
   return (
     <>
-      <Route
-        path="/team"
-        element={<Team />}
-      />
+      <Route path="/operations" element={<Operations />} />
 
-      <Route
-        path="/setup"
-        element={<Setup />}
-      />
+      <Route path="/communications" element={<Communications />} />
 
-      <Route
-        path="/output"
-        element={<Output />}
-      />
+      <Route path="/output" element={<Output />} />
 
-      <Route
-        path="/preferences"
-        element={<Preferences />}
-      />
+      <Route path="/setup" element={<Setup />} />
+
+      <Route path="/tools" element={<Tools />} />
+
+      <Route path="/analytics" element={<Analytics />} />
     </>
-  )
+  );
 }

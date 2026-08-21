@@ -1,49 +1,48 @@
-import { useEffect } from 'react'
-import { Navigate, Route, Routes } from 'react-router'
+import { useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router";
 
-import Header from './Workspace/Navigation/Header.jsx'
+import Header from "./Workspace/Navigation/Header.jsx";
+import Landing from "./Workspace/Landing/Landing.jsx";
+import Preferences from "./Workspace/Preferences/Preferences.jsx";
 
-import { useAllRuntime } from './Runtime/index.js'
-import { getEngine } from './Engines/index.js'
+import { useAllRuntime } from "./Runtime/index.js";
+import { getEngine } from "./Engines/index.js";
 
-import defaultProject from '../Data/Projects/defaultProject.json'
+import defaultProject from "../Data/Projects/defaultProject.json";
 
-import './App.css'
+import "./App.css";
 
 function App() {
-  const allRuntime = useAllRuntime()
+  const allRuntime = useAllRuntime();
 
-  const global = allRuntime.global
+  const global = allRuntime.global;
 
   const engineRuntime = global.engineKey
     ? allRuntime[global.engineKey]
-    : {}
+    : {};
 
   const runtime = {
     ...global,
     ...engineRuntime,
-  }
+  };
 
   const engine = runtime.engineKey
     ? getEngine(runtime.engineKey)
-    : null
+    : null;
 
   // ─────────────────────────────────────────────
   // 1. Load Default Local Project
   // ─────────────────────────────────────────────
   useEffect(() => {
-    if (runtime.project) return
+    if (runtime.project) return;
 
     runtime.setProject(
       structuredClone(defaultProject),
-    )
-  }, [runtime.project, runtime.setProject])
+    );
+  }, [runtime.project, runtime.setProject]);
 
   const pagesConfig =
-    engine?.getPagesConfig?.() || []
-
-  const defaultPage =
-    pagesConfig[0]?.path || 'team'
+    engine?.getPagesConfig?.() || [];
 
   return (
     <div className="app">
@@ -61,21 +60,23 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              <Navigate
-                to={`/${defaultPage}`}
-                replace
-              />
-            }
+            element={<Landing />}
           />
 
-          {engine?.PagesAdapter?.({runtime})}
+          {engine?.PagesAdapter?.({
+            runtime,
+          })}
+
+          <Route
+            path="/preferences"
+            element={<Preferences />}
+          />
 
           <Route
             path="*"
             element={
               <Navigate
-                to={`/${defaultPage}`}
+                to="/"
                 replace
               />
             }
@@ -83,7 +84,7 @@ function App() {
         </Routes>
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,4 +1,4 @@
-function Output({runtime}) {
+function Output() {
   return (
     <div
       style={{

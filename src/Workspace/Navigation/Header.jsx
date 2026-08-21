@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router'
+import { NavLink } from "react-router";
 
-import './Header.css'
+import "./Header.css";
 
 function Header({ pagesConfig = [] }) {
   return (
@@ -10,6 +10,13 @@ function Header({ pagesConfig = [] }) {
       </div>
 
       <nav className="header-navigation">
+        <NavLink
+          to="/"
+          end
+        >
+          Home
+        </NavLink>
+
         {pagesConfig.map(({ key, path, label }) => (
           <NavLink
             key={key}
@@ -18,9 +25,13 @@ function Header({ pagesConfig = [] }) {
             {label}
           </NavLink>
         ))}
+
+        <NavLink to="/preferences">
+          Preferences
+        </NavLink>
       </nav>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
