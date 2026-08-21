@@ -5,6 +5,7 @@ import Communications from "../../Workflows/Communications.jsx";
 import Output from "../../Workflows/Output.jsx";
 import Agents from "../../Workflows/Agents.jsx";
 import Tools from "../../Workflows/Tools.jsx";
+import Commands from "../../Workflows/Commands.jsx";
 import Analytics from "../../Workflows/Analytics.jsx";
 
 export function getPagesConfig() {
@@ -35,6 +36,11 @@ export function getPagesConfig() {
       label: "Tools",
     },
     {
+      key: "commands",
+      path: "commands",
+      label: "Commands",
+    },
+    {
       key: "analytics",
       path: "analytics",
       label: "Analytics",
@@ -56,6 +62,8 @@ export function PagesAdapter({ runtime }) {
       <Route path="/agents" element={<Agents />} />
 
       <Route path="/tools" element={<Tools />} />
+
+      <Route path="/commands" element={<Commands />} />
 
       <Route path="/analytics" element={<Analytics />} />
     </>
