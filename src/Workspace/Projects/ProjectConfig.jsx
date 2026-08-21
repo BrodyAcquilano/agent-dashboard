@@ -28,7 +28,8 @@ function ProjectConfig() {
 
           <p>
             Projects using the same engine can still contain completely
-            different agents, tools, departments, data, and tasks.
+            different departments, agents, tools, tasks, data, and
+            organizational structures.
           </p>
         </section>
 
@@ -56,31 +57,62 @@ function ProjectConfig() {
         </section>
 
         <section className="project-config-section">
-          <h2>Agents & Organization</h2>
+          <h2>Allowed Models</h2>
 
           <p>
-            Select reusable agents that are available to the project and
-            assign them project-specific organizational positions.
+            Define which AI providers and models may be used when creating
+            agents for this project.
           </p>
 
           <p>
-            Project assignments may define department, parent and child
-            relationships, graph position, reporting structure, communication
-            edges, responsibilities, and project-specific constraints.
+            Agent templates can only be used to create project agents when
+            their required model or provider is allowed by the project.
           </p>
         </section>
 
         <section className="project-config-section">
-          <h2>Tools</h2>
+          <h2>Agent Templates</h2>
 
           <p>
-            Select which reusable tools are available within this project and
-            define any project-level restrictions or configuration.
+            Select reusable agent templates that are available when creating
+            agents for this project.
           </p>
 
           <p>
-            An agent can only use tools that are both permitted by the project
-            and assigned to that agent.
+            Templates provide starting configurations for common roles, but
+            the actual agent created from a template belongs specifically to
+            this project and is configured through the Agents workflow.
+          </p>
+        </section>
+
+        <section className="project-config-section">
+          <h2>Tool Templates</h2>
+
+          <p>
+            Select reusable tool templates that are available when creating
+            tools for this project.
+          </p>
+
+          <p>
+            Tool templates provide reusable definitions and configuration
+            patterns. Actual project tools can then be configured for the
+            requirements of the current project.
+          </p>
+        </section>
+
+        <section className="project-config-section">
+          <h2>Agents & Organization</h2>
+
+          <p>
+            Agents created for the project are managed through the Agents
+            workflow and belong specifically to this project.
+          </p>
+
+          <p>
+            The project organization can reference those agents and define
+            their departments, graph positions, parent and child
+            relationships, reporting structure, communication edges, and
+            other organizational relationships.
           </p>
         </section>
 
@@ -119,7 +151,7 @@ function ProjectConfig() {
           <p>
             Define project-level execution rules, budgets, usage limits,
             concurrency restrictions, shutdown behavior, and other guardrails
-            that apply across the agent organization.
+            that apply across the project.
           </p>
         </section>
 
