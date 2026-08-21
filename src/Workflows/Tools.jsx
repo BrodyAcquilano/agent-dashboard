@@ -1,19 +1,60 @@
-function Tools() {
-  return (
-    <div
-      style={{
-        padding: "24px",
-        color: "#fff",
-      }}
-    >
-      <h1>Tools</h1>
+import { useState } from "react";
 
-      <p>
-        Create and configure reusable tools that agents can access, including
-        external service integrations, API-based capabilities, local programs,
-        permissions, usage restrictions, and tool-specific limits.
-      </p>
-    </div>
+import ToolConfig from "../Tools/ToolConfig.jsx";
+
+import ToolSelector from "../Tools/ToolSelector.jsx";
+import ToolSelectorToggle from "../Tools/ToolSelectorToggle.jsx";
+
+import ToolTemplates from "../Tools/ToolTemplates.jsx";
+import ToolTemplatesToggle from "../Tools/ToolTemplatesToggle.jsx";
+
+import "../Styles/OverlayPanels.css";
+
+function Tools() {
+  const [
+    showToolSelector,
+    setShowToolSelector,
+  ] = useState(true);
+
+  const [
+    showToolTemplates,
+    setShowToolTemplates,
+  ] = useState(true);
+
+  return (
+    <>
+      <ToolConfig />
+
+      <div
+        className={`left-overlay-panel left-panel-wrapper ${
+          showToolSelector
+            ? ""
+            : "left-collapsed"
+        }`}
+      >
+        <ToolSelector />
+      </div>
+
+      <ToolSelectorToggle
+        showToolSelector={showToolSelector}
+        setShowToolSelector={setShowToolSelector}
+      />
+
+      <div
+        className={`right-overlay-panel right-panel-wrapper ${
+          showToolTemplates
+            ? ""
+            : "right-collapsed"
+        }`}
+      >
+        <ToolTemplates />
+      </div>
+
+      <ToolTemplatesToggle
+        showToolTemplates={showToolTemplates}
+        setShowToolTemplates={setShowToolTemplates}
+      />
+    </>
   );
 }
 
