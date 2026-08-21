@@ -2,7 +2,7 @@ import { NavLink } from 'react-router'
 
 import './Header.css'
 
-function Header() {
+function Header({ pagesConfig = [] }) {
   return (
     <header className="header">
       <div className="header-title">
@@ -10,21 +10,14 @@ function Header() {
       </div>
 
       <nav className="header-navigation">
-        <NavLink to="/team">
-          Team
-        </NavLink>
-
-        <NavLink to="/setup">
-          Setup
-        </NavLink>
-
-        <NavLink to="/output">
-          Output
-        </NavLink>
-
-        <NavLink to="/preferences">
-          Preferences
-        </NavLink>
+        {pagesConfig.map(({ key, path, label }) => (
+          <NavLink
+            key={key}
+            to={`/${path}`}
+          >
+            {label}
+          </NavLink>
+        ))}
       </nav>
     </header>
   )

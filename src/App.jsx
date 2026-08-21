@@ -1,27 +1,85 @@
+import { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 
 import Header from './Workspace/Navigation/Header.jsx'
 
-import Team from './Workflows/Team.jsx'
-import Setup from './Workflows/Setup.jsx'
-import Output from './Workflows/Output.jsx'
-import Preferences from './Workflows/Preferences.jsx'
+import { useAllRuntime } from './Runtime/index.js'
+import { getEngine } from './Engines/index.js'
+
+import defaultProject from '../Data/Projects/defaultProject.json'
 
 import './App.css'
 
 function App() {
+  const allRuntime = useAllRuntime()
+
+  const global = allRuntime.global
+
+  const engineRuntime = global.engineKey
+    ? allRuntime[global.engineKey]
+    : {}
+
+  const runtime = {
+    ...global,
+    ...engineRuntime,
+  }
+
+  const engine = runtime.engineKey
+    ? getEngine(runtime.engineKey)
+    : null
+
+  // ─────────────────────────────────────────────
+  // 1. Load Default Local Project
+  // ─────────────────────────────────────────────
+  useEffect(() => {
+    if (runtime.project) return
+
+    runtime.setProject(
+      structuredClone(defaultProject),
+    )
+  }, [runtime.project, runtime.setProject])
+
+  const pagesConfig =
+    engine?.getPagesConfig?.() || []
+
+  const defaultPage =
+    pagesConfig[0]?.path || 'team'
+
   return (
     <div className="app">
-      <Header />
+      <Header
+        pagesConfig={pagesConfig}
+      />
 
       <main className="main-layer">
-        <Routes>
-          <Route path="/" element={<Navigate to="/team" replace />} />
+        {engine?.AppAdapter && (
+          <engine.AppAdapter
+            runtime={runtime}
+          />
+        )}
 
-          <Route path="/team" element={<Team />} />
-          <Route path="/setup" element={<Setup />} />
-          <Route path="/output" element={<Output />} />
-          <Route path="/preferences" element={<Preferences />} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Navigate
+                to={`/${defaultPage}`}
+                replace
+              />
+            }
+          />
+
+          {engine?.PagesAdapter?.({runtime})}
+
+          <Route
+            path="*"
+            element={
+              <Navigate
+                to={`/${defaultPage}`}
+                replace
+              />
+            }
+          />
         </Routes>
       </main>
     </div>
