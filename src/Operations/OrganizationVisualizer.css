@@ -1,0 +1,36 @@
+.organization-visualizer {
+  flex: 1;
+
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #050505;
+  color: #fff;
+
+  overflow: hidden;
+}
+
+.organization-visualizer-placeholder {
+  max-width: 500px;
+
+  padding: 24px;
+
+  text-align: center;
+}
+
+.organization-visualizer-placeholder h2 {
+  margin: 0 0 12px;
+}
+
+.organization-visualizer-placeholder p {
+  margin: 0;
+
+  line-height: 1.5;
+}

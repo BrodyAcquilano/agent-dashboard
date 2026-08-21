@@ -1,0 +1,175 @@
+/* ─────────────────────────────────────────────
+   Left Panel
+   ───────────────────────────────────────────── */
+
+.left-side-toggle {
+  position: absolute;
+
+  top: 35px;
+  left: 350px;
+
+  font-size: 1.5rem;
+
+  background: #111;
+  color: #fff;
+
+  border: 1px solid #555;
+  border-radius: 10px;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+
+  z-index: 1002;
+
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+
+  transition: left 0.4s ease, right 0.4s ease;
+}
+
+.left-side-toggle.left-collapsed-toggle {
+  left: 30px;
+}
+
+
+/* Panel layout wrapper */
+
+.left-overlay-panel {
+  position: absolute;
+
+  top: 0;
+  bottom: env(safe-area-inset-bottom, 0px);
+
+  width: 350px;
+  min-width: 350px;
+  max-width: 350px;
+
+  background-color: transparent;
+
+  padding: 20px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  z-index: 1001;
+
+  transition: transform 0.3s ease;
+
+  direction: rtl;
+}
+
+.left-overlay-panel * {
+  direction: ltr;
+}
+
+
+/* Position of left panel */
+
+.left-panel-wrapper {
+  left: 0;
+}
+
+
+/* Collapsed state */
+
+.left-panel-wrapper.left-collapsed {
+  transform: translateX(-100%);
+}
+
+
+
+/* ─────────────────────────────────────────────
+   Right Panel
+   ───────────────────────────────────────────── */
+
+.right-side-toggle {
+  position: absolute;
+
+  right: 350px;
+  bottom: 35px;
+
+  font-size: 1.5rem;
+
+  background: #111;
+  color: #fff;
+
+  border: 1px solid #555;
+  border-radius: 10px;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+
+  z-index: 1004;
+
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+
+  transition: left 0.4s ease, right 0.4s ease;
+}
+
+.right-side-toggle.right-collapsed-toggle {
+  right: 40px;
+}
+
+
+/* Panel layout wrapper */
+
+.right-overlay-panel {
+  position: absolute;
+
+  top: 0;
+  bottom: env(safe-area-inset-bottom, 0px);
+
+  width: 350px;
+  min-width: 350px;
+  max-width: 350px;
+
+  background-color: transparent;
+
+  padding: 20px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  z-index: 1003;
+
+  transition: transform 0.3s ease;
+}
+
+
+/* Position of right panel */
+
+.right-panel-wrapper {
+  right: 0;
+}
+
+
+/* Collapsed state */
+
+.right-panel-wrapper.right-collapsed {
+  transform: translateX(100%);
+}
+
+
+
+/* ─────────────────────────────────────────────
+   Mobile
+   ───────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .right-side-toggle {
+    bottom: 30px;
+  }
+
+  .left-side-toggle {
+    top: 30px;
+  }
+
+  .right-side-toggle.right-collapsed-toggle {
+    right: 10px;
+  }
+
+  .left-side-toggle.left-collapsed-toggle {
+    left: 10px;
+  }
+}
