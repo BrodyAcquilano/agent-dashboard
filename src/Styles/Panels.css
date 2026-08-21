@@ -10,25 +10,28 @@
 
   font-family: sans-serif;
 
-  background-color: rgb(239, 241, 241);
-  color: #4b5563;
+  background-color: #000;
+  color: #fff;
 
-  border: 2px solid rgb(0, 0, 0);
-  border-radius: 20px;
+  border: 2px solid #fff;
+
+  border-radius: 0;
 
   box-shadow:
-    0 0 10px rgba(255, 255, 255, 0.18),
-    0 4px 12px rgba(0, 0, 0, 0.7);
+    0 0 10px rgba(255, 255, 255, 0.35),
+    0 0 20px rgba(255, 255, 255, 0.12);
 }
 
 .panel h2 {
   margin: 0 0 12px;
 
-  color: #111827;
+  color: #fff;
 }
 
 .panel p {
   margin: 0;
+
+  color: #fff;
 
   line-height: 1.5;
 }
