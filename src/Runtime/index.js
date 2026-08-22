@@ -1,15 +1,17 @@
-import { useGlobalRuntime } from './GlobalRuntime.jsx'
-import { useGeneralRuntime } from './GeneralRuntime.jsx'
+import { useGlobalRuntime } from "./GlobalRuntime.jsx";
+import { useGeneralRuntime } from "./GeneralRuntime.jsx";
 
 export function useAllRuntime() {
-  const global = useGlobalRuntime()
+  const global =
+    useGlobalRuntime();
 
-  const general = useGeneralRuntime({
-    project: global.project,
-  })
+  const general =
+    useGeneralRuntime({
+      project: global.project,
+    });
 
   return {
     global,
     general,
-  }
+  };
 }

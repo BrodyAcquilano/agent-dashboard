@@ -21,10 +21,15 @@ function App() {
     ? allRuntime[global.engineKey]
     : {};
 
-  const runtime = {
-    ...global,
-    ...engineRuntime,
-  };
+ const runtime = {
+  ...global,
+  ...engineRuntime,
+
+  apis: {
+    ...global.apis,
+    ...(engineRuntime.apis || {}),
+  },
+};
 
   const engine = runtime.engineKey
     ? getEngine(runtime.engineKey)
