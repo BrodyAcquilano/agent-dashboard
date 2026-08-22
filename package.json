@@ -7,6 +7,7 @@
     "dev": "vite",
     "server": "node Server/server.js",
     "populate-db": "node Scripts/Setup/PopulateDatabase.js",
+    "backfill-ids": "node Scripts/Setup/BackfillIds.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

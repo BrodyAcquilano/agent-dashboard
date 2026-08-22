@@ -750,6 +750,8 @@ The next stages involve defining real project and model data, creating agents fr
 
 ---
 
+---
+
 # Running Locally
 
 ## Requirements
@@ -759,7 +761,9 @@ Install:
 - [Node.js](https://nodejs.org/)
 - access to a MongoDB database
 
-MongoDB Atlas can be used for the database if a local MongoDB installation is not available.
+MongoDB Atlas can be used if a local MongoDB installation is not available.
+
+Agent Dashboard uses MongoDB for structured project, model, agent, tool, command, and analytics data. The repository includes starter JSON data and setup scripts that create a working development project in a fresh database.
 
 ## 1. Clone the Repository
 
@@ -791,9 +795,9 @@ DB_NAME=your_database_name
 PORT=3000
 ```
 
-`PORT` defines the local backend server port.
+`PORT` defines the local Express backend port.
 
-Do not commit `.env` or database credentials to the repository.
+Do not commit `.env`, database credentials, API keys, or other secrets to the repository.
 
 ## 4. Populate the Database
 
@@ -803,11 +807,52 @@ Run:
 npm run populate-db
 ```
 
-The setup script reads the default JSON files inside `Data/` and inserts them into their corresponding MongoDB collections.
+This reads the starter JSON files inside `Data/` and inserts them into their corresponding MongoDB collections.
 
-This provides the starter data needed for development and testing.
+For example:
 
-## 5. Start the Backend
+```text
+Data/Projects  → projects
+Data/Models    → models
+Data/Agents    → agents
+Data/Tools     → tools
+Data/Commands  → commands
+Data/Analytics → analytics
+```
+
+The starter files use temporary bootstrap keys because MongoDB `_id` values do not exist until the documents have been inserted.
+
+## 5. Backfill MongoDB IDs
+
+After population completes, run:
+
+```bash
+npm run backfill-ids
+```
+
+This resolves the temporary relationships between the starter documents, replaces their bootstrap references with real MongoDB ObjectIds, and removes the temporary entity keys.
+
+Conceptually:
+
+```text
+Data JSON
+    ↓
+npm run populate-db
+    ↓
+MongoDB creates _id values
+    ↓
+npm run backfill-ids
+    ↓
+Project, Model, Agent, and Tool references use MongoDB IDs
+    ↓
+Starter Research Project ready
+```
+
+The included starter data provides a small web-research project with a configured model, research agent, Web Search tool, and Code Interpreter tool. It exists primarily to provide real structured data for developing and testing the dashboard.
+
+The bootstrap scripts are intended for initializing a fresh development database. Projects and agents created later through the application will already have MongoDB IDs available and will not require this backfill process.
+
+## 6. Start the Backend
 
 In one terminal:
 
@@ -815,9 +860,15 @@ In one terminal:
 npm run server
 ```
 
-The local Express backend runs on the configured backend port.
+The Express server connects to MongoDB and exposes the local application API.
 
-## 6. Start the Frontend
+By default:
+
+```text
+http://localhost:3000
+```
+
+## 7. Start the Frontend
 
 In another terminal:
 
@@ -826,6 +877,8 @@ npm run dev
 ```
 
 Vite starts the React development application.
+
+The frontend uses the local `/api` proxy to communicate with the Express backend.
 
 ## Other Commands
 
@@ -846,6 +899,8 @@ Preview a production build:
 ```bash
 npm run preview
 ```
+
+---
 
 ---
 

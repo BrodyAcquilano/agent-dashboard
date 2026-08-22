@@ -1,5 +1,9 @@
 import { useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router";
+import {
+  Navigate,
+  Route,
+  Routes,
+} from "react-router";
 
 import Header from "./Workspace/Navigation/Header.jsx";
 import Projects from "./Workspace/Projects/Projects.jsx";
@@ -8,43 +12,88 @@ import Preferences from "./Workspace/Preferences/Preferences.jsx";
 import { useAllRuntime } from "./Runtime/index.js";
 import { getEngine } from "./Engines/index.js";
 
-import defaultProject from "../Data/Projects/defaultProject.json";
-
 import "./App.css";
 
 function App() {
-  const allRuntime = useAllRuntime();
+  const allRuntime =
+    useAllRuntime();
 
-  const global = allRuntime.global;
+  const global =
+    allRuntime.global;
 
-  const engineRuntime = global.engineKey
-    ? allRuntime[global.engineKey]
-    : {};
+  const engineRuntime =
+    global.engineKey
+      ? allRuntime[global.engineKey]
+      : {};
 
- const runtime = {
-  ...global,
-  ...engineRuntime,
+  const runtime = {
+    ...global,
+    ...engineRuntime,
 
-  apis: {
-    ...global.apis,
-    ...(engineRuntime.apis || {}),
-  },
-};
+    apis: {
+      ...global.apis,
+      ...(engineRuntime.apis || {}),
+    },
+  };
 
-  const engine = runtime.engineKey
-    ? getEngine(runtime.engineKey)
-    : null;
+  const engine =
+    runtime.engineKey
+      ? getEngine(runtime.engineKey)
+      : null;
 
   // ─────────────────────────────────────────────
-  // 1. Load Default Local Project
+  // 1. Load Projects + Initial Project
   // ─────────────────────────────────────────────
   useEffect(() => {
-    if (runtime.project) return;
+    let cancelled = false;
 
-    runtime.setProject(
-      structuredClone(defaultProject),
-    );
-  }, [runtime.project, runtime.setProject]);
+    async function loadInitialProject() {
+      const {
+        data: projectList,
+      } =
+        await global.apis.projectApi.getAll();
+
+      if (cancelled) return;
+
+      global.setProjects(projectList);
+
+      if (projectList.length === 0) {
+        console.log(
+          "No projects found.",
+        );
+
+        return;
+      }
+
+      const {
+        data: loadedProject,
+      } =
+        await global.apis.projectApi.get(
+          projectList[0]._id,
+        );
+
+      if (
+        cancelled ||
+        !loadedProject
+      ) {
+        return;
+      }
+
+      global.setProject(
+        loadedProject,
+      );
+    }
+
+    loadInitialProject();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    global.apis.projectApi,
+    global.setProjects,
+    global.setProject,
+  ]);
 
   const pagesConfig =
     engine?.getPagesConfig?.() || [];
@@ -74,7 +123,9 @@ function App() {
 
           <Route
             path="/preferences"
-            element={<Preferences />}
+            element={
+              <Preferences />
+            }
           />
 
           <Route

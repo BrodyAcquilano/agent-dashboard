@@ -1,0 +1,96 @@
+{
+  "projectKey": "default-research-project",
+  "projectName": "Default Research Project",
+  "projectDescription": "A starter research project with one AI research agent that researches a Markdown request using web search and produces a styled PDF report.",
+  "engineKey": "general",
+
+  "purpose": {
+    "name": "Web Research",
+    "description": "Research a user-provided topic using public web sources and produce a structured PDF research report."
+  },
+
+  "departments": [
+    {
+      "departmentKey": "research",
+      "departmentName": "Research",
+      "roles": [
+        "Web Research Assistant"
+      ]
+    }
+  ],
+
+  "modelRefs": [
+    {
+      "modelKey": "azure-gpt-5.6-terra",
+      "modelName": "GPT-5.6 Terra"
+    }
+  ],
+
+  "agentRefs": [
+    {
+      "agentKey": "research-agent",
+      "agentName": "Research Agent"
+    }
+  ],
+
+  "toolRefs": [
+    {
+      "toolKey": "web-search",
+      "toolName": "Web Search"
+    },
+    {
+      "toolKey": "code-interpreter",
+      "toolName": "Code Interpreter"
+    }
+  ],
+
+  "organizationGraph": {
+    "nodes": [
+      {
+        "agentKey": "research-agent",
+        "departmentKey": "research",
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    ],
+    "edges": []
+  },
+
+  "inputs": [
+    {
+      "inputKey": "research-request",
+      "name": "Research Request",
+      "type": "file",
+      "acceptedExtensions": [
+        ".md"
+      ],
+      "required": true
+    }
+  ],
+
+  "outputs": [
+    {
+      "outputKey": "research-report",
+      "name": "Research Report",
+      "type": "file",
+      "mimeType": "application/pdf",
+      "extension": ".pdf",
+      "required": true
+    }
+  ],
+
+  "analytics": [],
+
+  "execution": {
+    "autoStart": false,
+    "maxConcurrentAgents": 1,
+    "stopAgentsOnProjectClose": true
+  },
+
+  "guardrails": {
+    "maxRunMinutes": 20,
+    "maxProjectCostUsd": 5
+  }
+}

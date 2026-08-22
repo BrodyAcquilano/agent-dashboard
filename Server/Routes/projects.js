@@ -15,7 +15,17 @@ router.get("/get", async (req, res) => {
     const projects =
       await db
         .collection("projects")
-        .find({})
+        .find(
+          {},
+          {
+            projection: {
+              _id: 1,
+              projectName: 1,
+              projectDescription: 1,
+              engineKey: 1,
+            },
+          },
+        )
         .toArray();
 
     return res.json({
@@ -23,7 +33,9 @@ router.get("/get", async (req, res) => {
       message: "Projects retrieved.",
     });
   } catch (err) {
-    console.error("Failed to get projects.");
+    console.error(
+      "Failed to get projects.",
+    );
 
     return res.status(500).json({
       error: "Failed to get projects.",

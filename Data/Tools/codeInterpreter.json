@@ -1,0 +1,54 @@
+{
+  "toolKey": "code-interpreter",
+  "toolName": "Code Interpreter",
+
+  "description": "Executes model-generated Python in a sandbox and can create files such as reports, charts, images, and PDF documents.",
+
+  "toolType": "runtime",
+  "toolSubtype": "hosted-code-interpreter",
+
+  "provider": "azure-openai",
+
+  "implementation": {
+    "protocol": "responses",
+    "toolType": "code_interpreter",
+    "containerType": "auto",
+    "usesModelConnection": true
+  },
+
+  "purpose": [
+    "Generate PDF reports",
+    "Create charts and visualizations",
+    "Transform structured output into downloadable files"
+  ],
+
+  "inputs": [
+    {
+      "name": "content",
+      "type": "text",
+      "required": true
+    }
+  ],
+
+  "outputs": [
+    {
+      "name": "generatedFile",
+      "type": "file"
+    }
+  ],
+
+  "limits": {
+    "maxCallsPerAgentRun": 5,
+    "maxGeneratedFilesPerRun": 5
+  },
+
+  "compatibility": {
+    "departments": [
+      "Research"
+    ],
+
+    "roles": [
+      "Web Research Assistant"
+    ]
+  }
+}

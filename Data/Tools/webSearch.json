@@ -1,0 +1,57 @@
+{
+  "toolKey": "web-search",
+  "toolName": "Web Search",
+
+  "description": "Searches the public web for current information and returns source-grounded information for research tasks.",
+
+  "toolType": "api",
+  "toolSubtype": "hosted-model-tool",
+
+  "provider": "azure-openai",
+
+  "implementation": {
+    "protocol": "responses",
+    "toolType": "web_search",
+    "usesModelConnection": true
+  },
+
+  "purpose": [
+    "Find current information",
+    "Collect research sources",
+    "Verify factual claims",
+    "Gather supporting evidence"
+  ],
+
+  "inputs": [
+    {
+      "name": "query",
+      "type": "text",
+      "required": true
+    }
+  ],
+
+  "outputs": [
+    {
+      "name": "searchResults",
+      "type": "web-results"
+    },
+    {
+      "name": "citations",
+      "type": "url-citations"
+    }
+  ],
+
+  "limits": {
+    "maxCallsPerAgentRun": 10
+  },
+
+  "compatibility": {
+    "departments": [
+      "Research"
+    ],
+
+    "roles": [
+      "Web Research Assistant"
+    ]
+  }
+}

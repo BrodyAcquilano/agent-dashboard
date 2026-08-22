@@ -1,0 +1,190 @@
+{
+  "agentKey": "research-agent",
+  "agentName": "Research Agent",
+
+  "project": {
+    "projectKey": "default-research-project",
+    "projectName": "Default Research Project"
+  },
+
+  "description": "Researches a user-provided topic using public web sources and produces a styled PDF research report.",
+
+  "department": {
+    "departmentKey": "research",
+    "departmentName": "Research"
+  },
+
+  "role": {
+    "roleName": "Web Research Assistant"
+  },
+
+  "model": {
+    "modelKey": "azure-gpt-5.6-terra",
+    "modelName": "GPT-5.6 Terra"
+  },
+
+  "toolRefs": [
+    {
+      "toolKey": "web-search",
+      "toolName": "Web Search"
+    },
+    {
+      "toolKey": "code-interpreter",
+      "toolName": "Code Interpreter"
+    }
+  ],
+
+  "tasks": [
+    {
+      "taskKey": "research-topic",
+      "taskName": "Research Topic",
+      "order": 1,
+
+      "description": "Research the topic supplied by the user, compare relevant sources, identify important findings, and produce a structured source-supported Markdown report.",
+
+      "promptTemplate": {
+        "templateKey": "web-research",
+        "templatePath": "Prompts/Research/webResearch.md"
+      },
+
+      "inputs": [
+        {
+          "inputKey": "research-request",
+          "name": "Research Request",
+          "source": "user",
+          "type": "file",
+          "acceptedExtensions": [
+            ".md"
+          ],
+          "required": true
+        }
+      ],
+
+      "outputs": [
+        {
+          "outputKey": "research-markdown",
+          "name": "Research Markdown",
+          "type": "text",
+          "format": "markdown",
+          "temporary": true,
+          "required": true
+        }
+      ],
+
+      "toolRefs": [
+        {
+          "toolKey": "web-search",
+          "toolName": "Web Search",
+          "required": true,
+
+          "limits": {
+            "maxCalls": 10
+          }
+        }
+      ],
+
+      "parameters": {
+        "minimumSources": 3,
+        "targetSources": 5,
+        "maximumSources": 10,
+        "maximumRunMinutes": 10
+      },
+
+      "modelParameters": {
+        "reasoningEffort": "medium",
+        "maxOutputTokens": 12000,
+        "toolChoice": "auto",
+        "stream": false,
+        "background": false
+      }
+    },
+
+    {
+      "taskKey": "create-pdf-report",
+      "taskName": "Create PDF Report",
+      "order": 2,
+
+      "description": "Transform the completed Markdown research report into a polished, readable, visually organized PDF document.",
+
+      "promptTemplate": {
+        "templateKey": "pdf-report",
+        "templatePath": "Prompts/Research/pdfReport.md"
+      },
+
+      "inputs": [
+        {
+          "inputKey": "research-markdown",
+          "name": "Research Markdown",
+          "sourceTaskKey": "research-topic",
+          "sourceOutputKey": "research-markdown",
+          "type": "text",
+          "format": "markdown",
+          "required": true
+        }
+      ],
+
+      "outputs": [
+        {
+          "outputKey": "research-report",
+          "name": "Research Report",
+          "type": "file",
+          "mimeType": "application/pdf",
+          "extension": ".pdf",
+          "temporary": false,
+          "required": true
+        }
+      ],
+
+      "toolRefs": [
+        {
+          "toolKey": "code-interpreter",
+          "toolName": "Code Interpreter",
+          "required": true,
+
+          "limits": {
+            "maxCalls": 5
+          }
+        }
+      ],
+
+      "parameters": {
+        "documentStyle": "professional-report",
+        "includeTitlePage": true,
+        "includeSectionHeadings": true,
+        "includeSourceSection": true,
+        "includePageNumbers": true
+      },
+
+      "modelParameters": {
+        "reasoningEffort": "medium",
+        "maxOutputTokens": 8000,
+        "toolChoice": "required",
+        "stream": false,
+        "background": false
+      }
+    }
+  ],
+
+  "communication": {
+    "acceptUserRequests": true,
+    "acceptedAgentRequests": [],
+    "allowedAgentRequestTargets": []
+  },
+
+  "permissions": {
+    "canUseTools": true,
+    "canCreateOutputFiles": true,
+    "canModifyProjectConfiguration": false,
+    "canModifyOtherAgents": false,
+    "canDelegateTasks": false
+  },
+
+  "execution": {
+    "autoStart": false,
+    "taskExecutionMode": "sequential",
+    "stopOnTaskFailure": true,
+    "maxConcurrentTasks": 1
+  },
+
+  "status": "configured"
+}

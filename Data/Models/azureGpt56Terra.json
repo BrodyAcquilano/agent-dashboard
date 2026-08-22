@@ -1,0 +1,101 @@
+{
+  "modelKey": "azure-gpt-5.6-terra",
+  "modelName": "GPT-5.6 Terra",
+
+  "provider": "openai",
+  "platform": "azure-openai",
+  "managementPlatform": "microsoft-foundry",
+
+  "providerModelId": "gpt-5.6-terra",
+  "modelVersion": "2026-07-09",
+
+  "description": "A general-purpose reasoning model suitable for research, synthesis, writing, tool use, and document-generation workflows.",
+
+  "suggestedDepartments": [
+    "Research"
+  ],
+
+  "suggestedRoles": [
+    "Web Research Assistant"
+  ],
+
+  "api": {
+    "protocol": "responses",
+    "baseUrlEnv": "AZURE_OPENAI_BASE_URL",
+    "apiKeyEnv": "AZURE_OPENAI_API_KEY",
+    "deploymentNameEnv": "AZURE_OPENAI_DEPLOYMENT_NAME"
+  },
+
+  "capabilities": {
+    "textInput": true,
+    "imageInput": true,
+    "textOutput": true,
+    "reasoning": true,
+    "structuredOutput": true,
+    "functionCalling": true,
+    "parallelToolCalling": true,
+    "webSearch": true,
+    "codeInterpreter": true,
+    "fileGeneration": true
+  },
+
+  "limits": {
+    "contextWindowTokens": 1050000,
+    "maxInputTokens": 922000,
+    "maxOutputTokens": 128000
+  },
+
+  "parameters": {
+    "reasoningEffort": {
+      "apiPath": "reasoning.effort",
+      "type": "dropdown",
+      "options": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium"
+    },
+
+    "maxOutputTokens": {
+      "apiPath": "max_output_tokens",
+      "type": "number",
+      "min": 1,
+      "max": 128000,
+      "default": 12000
+    },
+
+    "toolChoice": {
+      "apiPath": "tool_choice",
+      "type": "dropdown",
+      "options": [
+        "none",
+        "auto",
+        "required"
+      ],
+      "default": "auto"
+    },
+
+    "stream": {
+      "apiPath": "stream",
+      "type": "checkbox",
+      "default": false
+    },
+
+    "background": {
+      "apiPath": "background",
+      "type": "checkbox",
+      "default": false
+    }
+  },
+
+  "pricing": {
+    "currency": "USD",
+    "source": "azure",
+    "inputPerMillionTokens": null,
+    "outputPerMillionTokens": null
+  }
+}
