@@ -4,8 +4,9 @@ import {
 } from "react";
 
 import { projectApi } from "../Api/projectApi.js";
+import { modelsApi } from "../Api/modelsApi.js";
 
-export function useGlobalRuntime() {
+export function useRuntime() {
   const [
     projects,
     setProjects,
@@ -16,12 +17,15 @@ export function useGlobalRuntime() {
     setProject,
   ] = useState(null);
 
-  const engineKey =
-    project?.engineKey ?? null;
+  const [
+    models,
+    setModels,
+  ] = useState([]);
 
   const apis = useMemo(
     () => ({
       projectApi,
+      modelsApi,
     }),
     [],
   );
@@ -33,7 +37,8 @@ export function useGlobalRuntime() {
     project,
     setProject,
 
-    engineKey,
+    models,
+    setModels,
 
     apis,
   };

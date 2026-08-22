@@ -8,7 +8,7 @@ import ProjectSelectorToggle from "./ProjectSelectorToggle.jsx";
 import ProjectTemplates from "./ProjectTemplates.jsx";
 import ProjectTemplatesToggle from "./ProjectTemplatesToggle.jsx";
 
-import "../../Styles/OverlayPanels.css";
+import "../Styles/OverlayPanels.css";
 
 function Projects() {
   const [

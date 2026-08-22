@@ -1,142 +1,120 @@
 import { useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-} from "react-router";
 
-import Header from "./Workspace/Navigation/Header.jsx";
-import Projects from "./Workspace/Projects/Projects.jsx";
-import Preferences from "./Workspace/Preferences/Preferences.jsx";
+import { Navigate, Route, Routes } from "react-router";
 
-import { useAllRuntime } from "./Runtime/index.js";
-import { getEngine } from "./Engines/index.js";
+import Header from "./Navigation/Header.jsx";
+
+import Projects from "./Projects/Projects.jsx";
+import Preferences from "./Preferences/Preferences.jsx";
+
+import Operations from "./Operations/Operations.jsx";
+import Communications from "./Communications/Communications.jsx";
+import Output from "./Output/Output.jsx";
+import Agents from "./Agents/Agents.jsx";
+import Tools from "./Tools/Tools.jsx";
+import Commands from "./Commands/Commands.jsx";
+import Analytics from "./Analytics/Analytics.jsx";
+
+import { useRuntime } from "./Runtime/Runtime.jsx";
 
 import "./App.css";
 
 function App() {
-  const allRuntime =
-    useAllRuntime();
-
-  const global =
-    allRuntime.global;
-
-  const engineRuntime =
-    global.engineKey
-      ? allRuntime[global.engineKey]
-      : {};
-
-  const runtime = {
-    ...global,
-    ...engineRuntime,
-
-    apis: {
-      ...global.apis,
-      ...(engineRuntime.apis || {}),
-    },
-  };
-
-  const engine =
-    runtime.engineKey
-      ? getEngine(runtime.engineKey)
-      : null;
+  const runtime = useRuntime();
 
   // ─────────────────────────────────────────────
-  // 1. Load Projects + Initial Project
+  // Load Initial Application Data
   // ─────────────────────────────────────────────
   useEffect(() => {
     let cancelled = false;
 
-    async function loadInitialProject() {
-      const {
-        data: projectList,
-      } =
-        await global.apis.projectApi.getAll();
+    async function loadInitialData() {
+      // ─────────────────────────────
+      // Lightweight Projects + Models
+      // ─────────────────────────────
+
+      const [projectResponse, modelResponse] = await Promise.all([
+        runtime.apis.projectApi.getAll(),
+        runtime.apis.modelsApi.getAll(),
+      ]);
 
       if (cancelled) return;
 
-      global.setProjects(projectList);
+      const projectList = projectResponse.data || [];
+
+      const modelList = modelResponse.data || [];
+
+      runtime.setProjects(projectList);
+
+      runtime.setModels(modelList);
+
+      if (modelList.length === 0) {
+        console.log(modelResponse.message || "No models found.");
+      }
 
       if (projectList.length === 0) {
-        console.log(
-          "No projects found.",
-        );
+        console.log(projectResponse.message || "No projects found.");
 
         return;
       }
 
-      const {
-        data: loadedProject,
-      } =
-        await global.apis.projectApi.get(
-          projectList[0]._id,
-        );
+      // ─────────────────────────────
+      // Full Initial Project
+      // ─────────────────────────────
 
-      if (
-        cancelled ||
-        !loadedProject
-      ) {
-        return;
-      }
-
-      global.setProject(
-        loadedProject,
+      const { data: loadedProject } = await runtime.apis.projectApi.get(
+        projectList[0]._id,
       );
+
+      if (cancelled) return;
+
+      if (!loadedProject) {
+        console.log("Failed to load project.");
+
+        return;
+      }
+
+      runtime.setProject(loadedProject);
     }
 
-    loadInitialProject();
+    loadInitialData();
 
     return () => {
       cancelled = true;
     };
   }, [
-    global.apis.projectApi,
-    global.setProjects,
-    global.setProject,
+    runtime.apis.projectApi,
+    runtime.apis.modelsApi,
+    runtime.setProjects,
+    runtime.setModels,
+    runtime.setProject,
   ]);
-
-  const pagesConfig =
-    engine?.getPagesConfig?.() || [];
 
   return (
     <div className="app">
-      <Header
-        pagesConfig={pagesConfig}
-      />
+      <Header />
 
       <main className="main-layer">
-        {engine?.AppAdapter && (
-          <engine.AppAdapter
-            runtime={runtime}
-          />
-        )}
-
         <Routes>
-          <Route
-            path="/"
-            element={<Projects />}
-          />
+          <Route path="/" element={<Projects />} />
 
-          {engine?.PagesAdapter?.({
-            runtime,
-          })}
+          <Route path="/operations" element={<Operations />} />
 
-          <Route
-            path="/preferences"
-            element={
-              <Preferences />
-            }
-          />
+          <Route path="/communications" element={<Communications />} />
 
-          <Route
-            path="*"
-            element={
-              <Navigate
-                to="/"
-                replace
-              />
-            }
-          />
+          <Route path="/output" element={<Output />} />
+
+          <Route path="/agents" element={<Agents />} />
+
+          <Route path="/tools" element={<Tools />} />
+
+          <Route path="/commands" element={<Commands />} />
+
+          <Route path="/analytics" element={<Analytics />} />
+
+          <Route path="/preferences" element={<Preferences />} />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </div>

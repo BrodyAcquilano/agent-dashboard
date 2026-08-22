@@ -1,4 +1,4 @@
-import "../../Styles/Panels.css";
+import "../Styles/Panels.css";
 
 function ProjectSelector() {
   return (

@@ -1,25 +1,19 @@
 import { useState } from "react";
 
-import ToolConfig from "../Tools/ToolConfig.jsx";
+import ToolConfig from "./ToolConfig.jsx";
 
-import ToolSelector from "../Tools/ToolSelector.jsx";
-import ToolSelectorToggle from "../Tools/ToolSelectorToggle.jsx";
+import ToolSelector from "./ToolSelector.jsx";
+import ToolSelectorToggle from "./ToolSelectorToggle.jsx";
 
-import ToolTemplates from "../Tools/ToolTemplates.jsx";
-import ToolTemplatesToggle from "../Tools/ToolTemplatesToggle.jsx";
+import ToolTemplates from "./ToolTemplates.jsx";
+import ToolTemplatesToggle from "./ToolTemplatesToggle.jsx";
 
 import "../Styles/OverlayPanels.css";
 
 function Tools() {
-  const [
-    showToolSelector,
-    setShowToolSelector,
-  ] = useState(true);
+  const [showToolSelector, setShowToolSelector] = useState(true);
 
-  const [
-    showToolTemplates,
-    setShowToolTemplates,
-  ] = useState(true);
+  const [showToolTemplates, setShowToolTemplates] = useState(true);
 
   return (
     <>
@@ -27,9 +21,7 @@ function Tools() {
 
       <div
         className={`left-overlay-panel left-panel-wrapper ${
-          showToolSelector
-            ? ""
-            : "left-collapsed"
+          showToolSelector ? "" : "left-collapsed"
         }`}
       >
         <ToolSelector />
@@ -42,9 +34,7 @@ function Tools() {
 
       <div
         className={`right-overlay-panel right-panel-wrapper ${
-          showToolTemplates
-            ? ""
-            : "right-collapsed"
+          showToolTemplates ? "" : "right-collapsed"
         }`}
       >
         <ToolTemplates />

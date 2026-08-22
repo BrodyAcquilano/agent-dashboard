@@ -1,25 +1,19 @@
 import { useState } from "react";
 
-import CommandBuilder from "../Commands/CommandBuilder.jsx";
+import CommandBuilder from "./CommandBuilder.jsx";
 
-import CommandSelector from "../Commands/CommandSelector.jsx";
-import CommandSelectorToggle from "../Commands/CommandSelectorToggle.jsx";
+import CommandSelector from "./CommandSelector.jsx";
+import CommandSelectorToggle from "./CommandSelectorToggle.jsx";
 
-import CommandTemplates from "../Commands/CommandTemplates.jsx";
-import CommandTemplatesToggle from "../Commands/CommandTemplatesToggle.jsx";
+import CommandTemplates from "./CommandTemplates.jsx";
+import CommandTemplatesToggle from "./CommandTemplatesToggle.jsx";
 
 import "../Styles/OverlayPanels.css";
 
 function Commands() {
-  const [
-    showCommandSelector,
-    setShowCommandSelector,
-  ] = useState(true);
+  const [showCommandSelector, setShowCommandSelector] = useState(true);
 
-  const [
-    showCommandTemplates,
-    setShowCommandTemplates,
-  ] = useState(true);
+  const [showCommandTemplates, setShowCommandTemplates] = useState(true);
 
   return (
     <>
@@ -27,9 +21,7 @@ function Commands() {
 
       <div
         className={`left-overlay-panel left-panel-wrapper ${
-          showCommandSelector
-            ? ""
-            : "left-collapsed"
+          showCommandSelector ? "" : "left-collapsed"
         }`}
       >
         <CommandSelector />
@@ -42,9 +34,7 @@ function Commands() {
 
       <div
         className={`right-overlay-panel right-panel-wrapper ${
-          showCommandTemplates
-            ? ""
-            : "right-collapsed"
+          showCommandTemplates ? "" : "right-collapsed"
         }`}
       >
         <CommandTemplates />

@@ -15,7 +15,18 @@ router.get("/get", async (req, res) => {
     const models =
       await db
         .collection("models")
-        .find({})
+        .find(
+          {},
+          {
+            projection: {
+              _id: 1,
+              modelName: 1,
+              description: 1,
+              provider: 1,
+              platform: 1,
+            },
+          },
+        )
         .toArray();
 
     return res.json({
@@ -23,7 +34,9 @@ router.get("/get", async (req, res) => {
       message: "Models retrieved.",
     });
   } catch (err) {
-    console.error("Failed to get models.");
+    console.error(
+      "Failed to get models.",
+    );
 
     return res.status(500).json({
       error: "Failed to get models.",

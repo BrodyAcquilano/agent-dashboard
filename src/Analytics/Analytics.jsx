@@ -1,25 +1,19 @@
 import { useState } from "react";
 
-import AnalyticsVisualizer from "../Analytics/AnalyticsVisualizer.jsx";
+import AnalyticsVisualizer from "./AnalyticsVisualizer.jsx";
 
-import AnalyticsLibrary from "../Analytics/AnalyticsLibrary.jsx";
-import AnalyticsLibraryToggle from "../Analytics/AnalyticsLibraryToggle.jsx";
+import AnalyticsLibrary from "./AnalyticsLibrary.jsx";
+import AnalyticsLibraryToggle from "./AnalyticsLibraryToggle.jsx";
 
-import WidgetConfig from "../Analytics/WidgetConfig.jsx";
-import WidgetConfigToggle from "../Analytics/WidgetConfigToggle.jsx";
+import WidgetConfig from "./WidgetConfig.jsx";
+import WidgetConfigToggle from "./WidgetConfigToggle.jsx";
 
 import "../Styles/OverlayPanels.css";
 
 function Analytics() {
-  const [
-    showAnalyticsLibrary,
-    setShowAnalyticsLibrary,
-  ] = useState(true);
+  const [showAnalyticsLibrary, setShowAnalyticsLibrary] = useState(true);
 
-  const [
-    showWidgetConfig,
-    setShowWidgetConfig,
-  ] = useState(true);
+  const [showWidgetConfig, setShowWidgetConfig] = useState(true);
 
   return (
     <>
@@ -27,9 +21,7 @@ function Analytics() {
 
       <div
         className={`left-overlay-panel left-panel-wrapper ${
-          showAnalyticsLibrary
-            ? ""
-            : "left-collapsed"
+          showAnalyticsLibrary ? "" : "left-collapsed"
         }`}
       >
         <AnalyticsLibrary />
@@ -42,9 +34,7 @@ function Analytics() {
 
       <div
         className={`right-overlay-panel right-panel-wrapper ${
-          showWidgetConfig
-            ? ""
-            : "right-collapsed"
+          showWidgetConfig ? "" : "right-collapsed"
         }`}
       >
         <WidgetConfig />

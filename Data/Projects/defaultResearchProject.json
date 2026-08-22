@@ -2,7 +2,6 @@
   "projectKey": "default-research-project",
   "projectName": "Default Research Project",
   "projectDescription": "A starter research project with one AI research agent that researches a Markdown request using web search and produces a styled PDF report.",
-  "engineKey": "general",
 
   "purpose": {
     "name": "Web Research",

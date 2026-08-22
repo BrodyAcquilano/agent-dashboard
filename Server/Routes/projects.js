@@ -22,7 +22,6 @@ router.get("/get", async (req, res) => {
               _id: 1,
               projectName: 1,
               projectDescription: 1,
-              engineKey: 1,
             },
           },
         )
@@ -76,7 +75,9 @@ router.get("/get/:_id", async (req, res) => {
       message: "Project retrieved.",
     });
   } catch (err) {
-    console.error("Failed to get project.");
+    console.error(
+      "Failed to get project.",
+    );
 
     return res.status(500).json({
       error: "Failed to get project.",
@@ -107,8 +108,6 @@ router.post("/add", async (req, res) => {
       updatedAt: now,
     };
 
-    delete document._id;
-
     const result =
       await db
         .collection("projects")
@@ -122,7 +121,9 @@ router.post("/add", async (req, res) => {
       message: "Project added.",
     });
   } catch (err) {
-    console.error("Failed to add project.");
+    console.error(
+      "Failed to add project.",
+    );
 
     return res.status(500).json({
       error: "Failed to add project.",
@@ -185,7 +186,9 @@ router.put("/update/:_id", async (req, res) => {
       message: "Project updated.",
     });
   } catch (err) {
-    console.error("Failed to update project.");
+    console.error(
+      "Failed to update project.",
+    );
 
     return res.status(500).json({
       error: "Failed to update project.",
@@ -228,7 +231,9 @@ router.delete("/remove/:_id", async (req, res) => {
       message: "Project removed.",
     });
   } catch (err) {
-    console.error("Failed to remove project.");
+    console.error(
+      "Failed to remove project.",
+    );
 
     return res.status(500).json({
       error: "Failed to remove project.",

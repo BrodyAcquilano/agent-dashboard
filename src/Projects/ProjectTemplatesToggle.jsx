@@ -1,4 +1,4 @@
-import "../../Styles/OverlayPanels.css";
+import "../Styles/OverlayPanels.css";
 
 function ProjectTemplatesToggle({
   showProjectTemplates,
